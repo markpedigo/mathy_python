@@ -183,3 +183,4 @@ cython_debug/
 *.wav
 *.aup3
 *.mp3
+~$*.docx
