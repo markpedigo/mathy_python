@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0b14fa73ac1cae2d0028b4a73a19a9ba {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+    <div style="
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        font-size: 18px;
+        font-weight: 700;
+        background-color: white;
+        padding: 8px 14px;
+        border-radius: 6px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+    ">
+        Global AI Companies by Region and Size
+    </div>
+    
+    
+    <div style="
+        position: fixed;
+        bottom: 50px;
+        left: 50px;
+        width: 240px;
+        background-color: white;
+        border: 2px solid grey;
+        border-radius: 8px;
+        z-index: 9999;
+        font-size: 14px;
+        padding: 10px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+        line-height: 1.6;
+    ">
+      <div style="font-weight: 700; margin-bottom: 8px;">Region</div>
+      <div><span style="color: blue;">●</span> North America</div>
+      <div><span style="color: green;">●</span> Europe</div>
+      <div><span style="color: red;">●</span> Asia / Middle East</div>
+      <div><span style="color: gray;">●</span> Other</div>
+
+      <div style="border-top: 1px solid #ddd; padding-top: 6px; margin-top: 8px; font-size: 13px;">
+        Numbers = number of companies<br>
+        Larger circles = more employees
+      </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_0b14fa73ac1cae2d0028b4a73a19a9ba" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0b14fa73ac1cae2d0028b4a73a19a9ba = L.map(
+                "map_0b14fa73ac1cae2d0028b4a73a19a9ba",
+                {
+                    center: [30.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "maxBounds": [
+[
+-90,
+-180,
+],
+[
+90,
+180,
+],
+],
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+  "worldCopyJump": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c2669f67f72a52aaba91c7558109db8a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 2.5,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c2669f67f72a52aaba91c7558109db8a.addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+        
+    
+            var feature_group_760d41b6710e16639510a969c7ed5b47 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2 = L.markerClusterGroup(
+                {
+}
+            );
+            marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2.options.iconCreateFunction =
+                function(cluster) {
+        return L.divIcon({
+            html: '<div style="background:blue;color:white;border-radius:50%;'
+                  + 'width:40px;height:40px;line-height:40px;text-align:center;'
+                  + 'font-weight:bold;border:2px solid white;">'
+                  + cluster.getChildCount() +
+                  '</div>',
+            className: 'marker-cluster-custom',
+            iconSize: [40, 40]
+        });
+    };
+        
+    
+            var marker_b8723ddb53f6f3a469e4226b59ae4e0c = L.marker(
+                [43.6534817, -79.3839347],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_a90755d52ad552a723a55a83fce1e2c6 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_cf52398c67e623dbef40130b5fbfca76 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_079b393746fd0e047f357b2f83795136 = $(`<div id="html_079b393746fd0e047f357b2f83795136" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>BlueDot</b><br>Toronto, Canada<br>Founded: 2009<br>Employees: Unknown<br><br><a href="https://bluedot.global" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/BlueDot" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_cf52398c67e623dbef40130b5fbfca76.setContent(html_079b393746fd0e047f357b2f83795136);
+            
+        
+
+        marker_b8723ddb53f6f3a469e4226b59ae4e0c.bindPopup(popup_cf52398c67e623dbef40130b5fbfca76)
+        ;
+
+        
+    
+    
+                marker_b8723ddb53f6f3a469e4226b59ae4e0c.setIcon(div_icon_a90755d52ad552a723a55a83fce1e2c6);
+            
+    
+            var marker_43a62bc24d7b0d87955ab8fb022519cd = L.marker(
+                [43.6534817, -79.3839347],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_22caa8f0aaa310300ae1a2a694a67693 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:15.91927508265206px;\n                    height:15.91927508265206px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_fff8fff393cb83dd3f99313c10fc6721 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a5231938f2f056dc382c50714e47aad6 = $(`<div id="html_a5231938f2f056dc382c50714e47aad6" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Cohere</b><br>Toronto, Ontario, Canada<br>Founded: 2019<br>Employees: 450<br><br><a href="https://cohere.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Cohere" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_fff8fff393cb83dd3f99313c10fc6721.setContent(html_a5231938f2f056dc382c50714e47aad6);
+            
+        
+
+        marker_43a62bc24d7b0d87955ab8fb022519cd.bindPopup(popup_fff8fff393cb83dd3f99313c10fc6721)
+        ;
+
+        
+    
+    
+                marker_43a62bc24d7b0d87955ab8fb022519cd.setIcon(div_icon_22caa8f0aaa310300ae1a2a694a67693);
+            
+    
+            var marker_c26dcdd25dee6d028e3a976110319ae8 = L.marker(
+                [45.5031824, -73.5698065],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_cc6cc8fad62219f19e8bf471665694f0 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_bab2dbbfa11d767607d9de3dfbef9d01 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_291ac0250cdf2fea818106dd7ae1ff31 = $(`<div id="html_291ac0250cdf2fea818106dd7ae1ff31" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Element AI</b><br>Montreal, Quebec, Canada<br>Founded: 2016<br>Employees: Unknown<br><br><a href="https://www.elementai.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Element_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_bab2dbbfa11d767607d9de3dfbef9d01.setContent(html_291ac0250cdf2fea818106dd7ae1ff31);
+            
+        
+
+        marker_c26dcdd25dee6d028e3a976110319ae8.bindPopup(popup_bab2dbbfa11d767607d9de3dfbef9d01)
+        ;
+
+        
+    
+    
+                marker_c26dcdd25dee6d028e3a976110319ae8.setIcon(div_icon_cc6cc8fad62219f19e8bf471665694f0);
+            
+    
+            var marker_02bbb6bee661c3077ca5250355b36441 = L.marker(
+                [45.5031824, -73.5698065],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_eab6d6c015d5e9c8b50eeec1bbf6c715 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_e28f18eff02a8ecd29af3db2c0d2b5e8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cad073af85188a0eaf4a06782ae0b39a = $(`<div id="html_cad073af85188a0eaf4a06782ae0b39a" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Maluuba</b><br>Montreal, Quebec, Canada<br>Founded: 2011<br>Employees: Unknown<br><br><a href="http://www.maluuba.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Maluuba" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_e28f18eff02a8ecd29af3db2c0d2b5e8.setContent(html_cad073af85188a0eaf4a06782ae0b39a);
+            
+        
+
+        marker_02bbb6bee661c3077ca5250355b36441.bindPopup(popup_e28f18eff02a8ecd29af3db2c0d2b5e8)
+        ;
+
+        
+    
+    
+                marker_02bbb6bee661c3077ca5250355b36441.setIcon(div_icon_eab6d6c015d5e9c8b50eeec1bbf6c715);
+            
+    
+            var marker_55aca63fa87a516b7132fea0374c1cb2 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_3f9a878bc956a555825442850aa9b4f6 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.056547554334088px;\n                    height:13.056547554334088px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_ede737677884b2bc002d8d5af149ed8f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f8bdaf47c681c2d1d74a125de3f8b58f = $(`<div id="html_f8bdaf47c681c2d1d74a125de3f8b58f" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Anysphere</b><br>San Francisco, California, United States<br>Founded: 2022<br>Employees: 150<br><br><a href="https://en.wikipedia.org/wiki/Anysphere" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_ede737677884b2bc002d8d5af149ed8f.setContent(html_f8bdaf47c681c2d1d74a125de3f8b58f);
+            
+        
+
+        marker_55aca63fa87a516b7132fea0374c1cb2.bindPopup(popup_ede737677884b2bc002d8d5af149ed8f)
+        ;
+
+        
+    
+    
+                marker_55aca63fa87a516b7132fea0374c1cb2.setIcon(div_icon_3f9a878bc956a555825442850aa9b4f6);
+            
+    
+            var marker_7c654a052b98182f64a8a65b89b66bc2 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_b08b4e4cf3c0ce7bd8597ab944d08daa = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_5209b2dd1415dc3fedca2b103b16c018 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1a4d110f9f4719a3184885e4aec2a0f8 = $(`<div id="html_1a4d110f9f4719a3184885e4aec2a0f8" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Anthropic</b><br>San Francisco, California, U.S.<br>Founded: 2021<br>Employees: 2<br><br><a href="https://www.anthropic.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Anthropic" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_5209b2dd1415dc3fedca2b103b16c018.setContent(html_1a4d110f9f4719a3184885e4aec2a0f8);
+            
+        
+
+        marker_7c654a052b98182f64a8a65b89b66bc2.bindPopup(popup_5209b2dd1415dc3fedca2b103b16c018)
+        ;
+
+        
+    
+    
+                marker_7c654a052b98182f64a8a65b89b66bc2.setIcon(div_icon_b08b4e4cf3c0ce7bd8597ab944d08daa);
+            
+    
+            var marker_2a2ff5fe643e00a3c1da6bacac7b7a14 = L.marker(
+                [40.7127281, -74.0060152],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_dbeec23204fb8596623d8efec01b75b2 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_d8c904284f6dc2dcc6129037e29f39bf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a3bf8220d6881e18ba2afe8bfb3a6eb4 = $(`<div id="html_a3bf8220d6881e18ba2afe8bfb3a6eb4" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Caper AI</b><br>New York, US<br>Founded: 2016<br>Employees: Unknown<br><br><a href="https://www.caper.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Caper_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_d8c904284f6dc2dcc6129037e29f39bf.setContent(html_a3bf8220d6881e18ba2afe8bfb3a6eb4);
+            
+        
+
+        marker_2a2ff5fe643e00a3c1da6bacac7b7a14.bindPopup(popup_d8c904284f6dc2dcc6129037e29f39bf)
+        ;
+
+        
+    
+    
+                marker_2a2ff5fe643e00a3c1da6bacac7b7a14.setIcon(div_icon_dbeec23204fb8596623d8efec01b75b2);
+            
+    
+            var marker_8f92f6bbb99e2c6b96aa1c51986e93e3 = L.marker(
+                [37.3688301, -122.036349],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_06d4aff81178aaedebd4aeef60da42ab = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:15.618866235721093px;\n                    height:15.618866235721093px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_c5c44fe58b705a4396cded96597dabb2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_71c958325307d659e8e7c044c0710a8d = $(`<div id="html_71c958325307d659e8e7c044c0710a8d" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Cerebras</b><br>Sunnyvale, California, US<br>Founded: 2015<br>Employees: 401<br><br><a href="http://cerebras.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Cerebras" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_c5c44fe58b705a4396cded96597dabb2.setContent(html_71c958325307d659e8e7c044c0710a8d);
+            
+        
+
+        marker_8f92f6bbb99e2c6b96aa1c51986e93e3.bindPopup(popup_c5c44fe58b705a4396cded96597dabb2)
+        ;
+
+        
+    
+    
+                marker_8f92f6bbb99e2c6b96aa1c51986e93e3.setIcon(div_icon_06d4aff81178aaedebd4aeef60da42ab);
+            
+    
+            var marker_b59a0b5ccdd163dbd1717f107399f154 = L.marker(
+                [42.5048167, -71.1956111],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_1569280c314a0ab025d93ba51d362174 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_422f9e3f1c9b60b2660d00758a159cc6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f52754d7415d0827c394c6b33ce71508 = $(`<div id="html_f52754d7415d0827c394c6b33ce71508" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Cerence</b><br>Burlington, Massachusetts, U.S.<br>Founded: 2019<br>Employees: 1<br><br><a href="http://cerence.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Cerence" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_422f9e3f1c9b60b2660d00758a159cc6.setContent(html_f52754d7415d0827c394c6b33ce71508);
+            
+        
+
+        marker_b59a0b5ccdd163dbd1717f107399f154.bindPopup(popup_422f9e3f1c9b60b2660d00758a159cc6)
+        ;
+
+        
+    
+    
+                marker_b59a0b5ccdd163dbd1717f107399f154.setIcon(div_icon_1569280c314a0ab025d93ba51d362174);
+            
+    
+            var marker_742b848296886874c4aedab05c8f05c6 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_bd9886a06ff7e14514abfec1c07004e8 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.806179973983888px;\n                    height:13.806179973983888px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_75d7f0b7263b345838c3ed10acca2b22 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d50acecc6035626583ba825abe0a85c5 = $(`<div id="html_d50acecc6035626583ba825abe0a85c5" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Cognition AI</b><br>San Francisco, California, United States<br>Founded: 2023<br>Employees: 200<br><br><a href="https://cognition.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Cognition_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_75d7f0b7263b345838c3ed10acca2b22.setContent(html_d50acecc6035626583ba825abe0a85c5);
+            
+        
+
+        marker_742b848296886874c4aedab05c8f05c6.bindPopup(popup_75d7f0b7263b345838c3ed10acca2b22)
+        ;
+
+        
+    
+    
+                marker_742b848296886874c4aedab05c8f05c6.setIcon(div_icon_bd9886a06ff7e14514abfec1c07004e8);
+            
+    
+            var marker_beb1d75b485f83a0f03b6af99c708eec = L.marker(
+                [30.3251945, -97.7085989],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_31c756fd823173e6292f7aadfe4abdb1 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_006fbbc29254bff061e87e9716ed74c5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0e7dfab0fe14f4f2c65679627de36ee9 = $(`<div id="html_0e7dfab0fe14f4f2c65679627de36ee9" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Conversable</b><br>Suite 318, Austin, United States<br>Founded: 2015<br>Employees: 39<br><br><a href="http://conversable.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Conversable" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_006fbbc29254bff061e87e9716ed74c5.setContent(html_0e7dfab0fe14f4f2c65679627de36ee9);
+            
+        
+
+        marker_beb1d75b485f83a0f03b6af99c708eec.bindPopup(popup_006fbbc29254bff061e87e9716ed74c5)
+        ;
+
+        
+    
+    
+                marker_beb1d75b485f83a0f03b6af99c708eec.setIcon(div_icon_31c756fd823173e6292f7aadfe4abdb1);
+            
+    
+            var marker_19679e17c244e464c0e483a9848dd9c5 = L.marker(
+                [40.7959335, -74.3148713],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_4320427468bfe633af1e534071763200 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_b17ea94ae12541a427c41bf1cfba59dc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5e9d6a994bf55092f9d4d260f10be92c = $(`<div id="html_5e9d6a994bf55092f9d4d260f10be92c" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>CoreWeave</b><br>Livingston, New Jersey, United States<br>Founded: 2017<br>Employees: 2<br><br><a href="https://www.coreweave.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/CoreWeave" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_b17ea94ae12541a427c41bf1cfba59dc.setContent(html_5e9d6a994bf55092f9d4d260f10be92c);
+            
+        
+
+        marker_19679e17c244e464c0e483a9848dd9c5.bindPopup(popup_b17ea94ae12541a427c41bf1cfba59dc)
+        ;
+
+        
+    
+    
+                marker_19679e17c244e464c0e483a9848dd9c5.setIcon(div_icon_4320427468bfe633af1e534071763200);
+            
+    
+            var marker_2be180adfbe296d43f1a3996649a0ea0 = L.marker(
+                [37.8314089, -122.2865266],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_8355b4b82c444973a01b425098155e7a = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_181d5a6672d5aa33a345db2adab1053d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_17b3fa151c74f0cb65bf85ab1da5b9b1 = $(`<div id="html_17b3fa151c74f0cb65bf85ab1da5b9b1" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Covariant</b><br>Emeryville, California<br>Founded: 2017<br>Employees: Unknown<br><br><a href="https://covariant.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Covariant_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_181d5a6672d5aa33a345db2adab1053d.setContent(html_17b3fa151c74f0cb65bf85ab1da5b9b1);
+            
+        
+
+        marker_2be180adfbe296d43f1a3996649a0ea0.bindPopup(popup_181d5a6672d5aa33a345db2adab1053d)
+        ;
+
+        
+    
+    
+                marker_2be180adfbe296d43f1a3996649a0ea0.setIcon(div_icon_8355b4b82c444973a01b425098155e7a);
+            
+    
+            var marker_e95ae3a29ffda2e0d660c84f283a2118 = L.marker(
+                [37.4443293, -122.1598465],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_9f83589fab9a2eabb03a9d3eb7f3eb63 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:16.193820026016112px;\n                    height:16.193820026016112px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_1bb3335e48343ef10e99ae6b6cb5d094 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_154eb07b783821838b304bb67772d500 = $(`<div id="html_154eb07b783821838b304bb67772d500" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Glean Technologies</b><br>Palo Alto, California<br>Founded: 2019<br>Employees: 500<br><br><a href="https://glean.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Glean_Technologies" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_1bb3335e48343ef10e99ae6b6cb5d094.setContent(html_154eb07b783821838b304bb67772d500);
+            
+        
+
+        marker_e95ae3a29ffda2e0d660c84f283a2118.bindPopup(popup_1bb3335e48343ef10e99ae6b6cb5d094)
+        ;
+
+        
+    
+    
+                marker_e95ae3a29ffda2e0d660c84f283a2118.setIcon(div_icon_9f83589fab9a2eabb03a9d3eb7f3eb63);
+            
+    
+            var marker_93603853360f1aed468613db2c974026 = L.marker(
+                [37.3893889, -122.0832101],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_28adf0076f7d401d0ef37957d3cbd03e = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:14.387640052032225px;\n                    height:14.387640052032225px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_c5c2caa8e94ee8fe26af92f4707a4234 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_435955c13286814bc5f6f2fe353926f4 = $(`<div id="html_435955c13286814bc5f6f2fe353926f4" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Groq</b><br>Mountain View, California, US<br>Founded: 2016<br>Employees: 250<br><br><a href="https://groq.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Groq" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_c5c2caa8e94ee8fe26af92f4707a4234.setContent(html_435955c13286814bc5f6f2fe353926f4);
+            
+        
+
+        marker_93603853360f1aed468613db2c974026.bindPopup(popup_c5c2caa8e94ee8fe26af92f4707a4234)
+        ;
+
+        
+    
+    
+                marker_93603853360f1aed468613db2c974026.setIcon(div_icon_28adf0076f7d401d0ef37957d3cbd03e);
+            
+    
+            var marker_28ca5442c5352e0230500e50a1e8cffe = L.marker(
+                [34.0536909, -118.242766],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_73235176c7e3489b077cf049502b9016 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_4970ced5fdac69bbcfb8f37ca38a0ac7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_055805760d9161b693eb4cd5afae5696 = $(`<div id="html_055805760d9161b693eb4cd5afae5696" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>HeyGen</b><br>Los Angeles, California, U.S.<br>Founded: 2020<br>Employees: Unknown<br><br><a href="https://avatarbox.ru//" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/HeyGen" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_4970ced5fdac69bbcfb8f37ca38a0ac7.setContent(html_055805760d9161b693eb4cd5afae5696);
+            
+        
+
+        marker_28ca5442c5352e0230500e50a1e8cffe.bindPopup(popup_4970ced5fdac69bbcfb8f37ca38a0ac7)
+        ;
+
+        
+    
+    
+                marker_28ca5442c5352e0230500e50a1e8cffe.setIcon(div_icon_73235176c7e3489b077cf049502b9016);
+            
+    
+            var marker_f483a6bbf99819249ec04af49b244ff1 = L.marker(
+                [40.7579554, -73.9855319],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_06b866e3ae1cbc50d776128575d64778 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:14.387640052032225px;\n                    height:14.387640052032225px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_c07839bebf1c0dccbbce209f94e41e52 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_707093be58225077e485e573acc7d4c1 = $(`<div id="html_707093be58225077e485e573acc7d4c1" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Hugging Face</b><br>Manhattan, New York City<br>Founded: 2016<br>Employees: 250<br><br><a href="https://huggingface.co/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Hugging_Face" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_c07839bebf1c0dccbbce209f94e41e52.setContent(html_707093be58225077e485e573acc7d4c1);
+            
+        
+
+        marker_f483a6bbf99819249ec04af49b244ff1.bindPopup(popup_c07839bebf1c0dccbbce209f94e41e52)
+        ;
+
+        
+    
+    
+                marker_f483a6bbf99819249ec04af49b244ff1.setIcon(div_icon_06b866e3ae1cbc50d776128575d64778);
+            
+    
+            var marker_e6d77c97cdff39e05dd673658c276f7c = L.marker(
+                [37.4443293, -122.1598465],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_7718656f7b2e25b7872ef90adf9b7fed = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:11.070588240085542px;\n                    height:11.070588240085542px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_139c86f60bc831d66d7acc0eff4283e5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9b23dc34414807bb6b6b686239fd78ab = $(`<div id="html_9b23dc34414807bb6b6b686239fd78ab" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Inflection AI</b><br>Palo Alto, California, U.S.<br>Founded: 2022<br>Employees: 70<br><br><a href="https://inflection.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Inflection_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_139c86f60bc831d66d7acc0eff4283e5.setContent(html_9b23dc34414807bb6b6b686239fd78ab);
+            
+        
+
+        marker_e6d77c97cdff39e05dd673658c276f7c.bindPopup(popup_139c86f60bc831d66d7acc0eff4283e5)
+        ;
+
+        
+    
+    
+                marker_e6d77c97cdff39e05dd673658c276f7c.setIcon(div_icon_7718656f7b2e25b7872ef90adf9b7fed);
+            
+    
+            var marker_221d87e56273383d37afc65dfc2dffcc = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_645cff2e9640a93a2176b790b710ef98 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:14.862727528317976px;\n                    height:14.862727528317976px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_f26faec1384ccc6243691c3ea465a701 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1ee8bfd44a92e9cee9a873ae19ada83c = $(`<div id="html_1ee8bfd44a92e9cee9a873ae19ada83c" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Mercor</b><br>San Francisco, California, United States<br>Founded: 2023<br>Employees: 300<br><br><a href="http://Mercor.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Mercor" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_f26faec1384ccc6243691c3ea465a701.setContent(html_1ee8bfd44a92e9cee9a873ae19ada83c);
+            
+        
+
+        marker_221d87e56273383d37afc65dfc2dffcc.bindPopup(popup_f26faec1384ccc6243691c3ea465a701)
+        ;
+
+        
+    
+    
+                marker_221d87e56273383d37afc65dfc2dffcc.setIcon(div_icon_645cff2e9640a93a2176b790b710ef98);
+            
+    
+            var marker_a59f7f96ac16327b078beba4c2b7dbcd = L.marker(
+                [40.7127281, -74.0060152],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_b737143e4628b736b6f9f8196480f91b = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_a370dcec3ec520e25ef5d07344dc01eb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0960ea86efa928c764f48eb4d81843fe = $(`<div id="html_0960ea86efa928c764f48eb4d81843fe" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Meta AI</b><br>New York City, New York, U.S.<br>Founded: 2015<br>Employees: Unknown<br><br><a href="https://ai.meta.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Meta_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_a370dcec3ec520e25ef5d07344dc01eb.setContent(html_0960ea86efa928c764f48eb4d81843fe);
+            
+        
+
+        marker_a59f7f96ac16327b078beba4c2b7dbcd.bindPopup(popup_a370dcec3ec520e25ef5d07344dc01eb)
+        ;
+
+        
+    
+    
+                marker_a59f7f96ac16327b078beba4c2b7dbcd.setIcon(div_icon_b737143e4628b736b6f9f8196480f91b);
+            
+    
+            var marker_674be29f9dff8fa97f965a09fff7bd40 = L.marker(
+                [47.6694141, -122.1238767],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_347537f68ea3bbaaebe5ddc1a1d922b3 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_bf5c079b2af6df7cffea277e3db69865 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5e1d6902d51744b7df9caf040673d07c = $(`<div id="html_5e1d6902d51744b7df9caf040673d07c" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Microsoft AI</b><br>Redmond, Washington, United States<br>Founded: 2024<br>Employees: 10<br><br><a href="https://microsoft.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Microsoft_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_bf5c079b2af6df7cffea277e3db69865.setContent(html_5e1d6902d51744b7df9caf040673d07c);
+            
+        
+
+        marker_674be29f9dff8fa97f965a09fff7bd40.bindPopup(popup_bf5c079b2af6df7cffea277e3db69865)
+        ;
+
+        
+    
+    
+                marker_674be29f9dff8fa97f965a09fff7bd40.setIcon(div_icon_347537f68ea3bbaaebe5ddc1a1d922b3);
+            
+    
+            var marker_d3ce72c12f5ca0e0b6be502b7f68b009 = L.marker(
+                [37.3893889, -122.0832101],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_62b0388c3a8ba05f843a13cd7a6d5b16 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:17.07058824008554px;\n                    height:17.07058824008554px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_609d797080ab1d3ac4b576b59401bb53 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8298f4594b2b60432d42e6df6db9db44 = $(`<div id="html_8298f4594b2b60432d42e6df6db9db44" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Nuro</b><br>Mountain View, California, United States<br>Founded: 2016<br>Employees: 700<br><br><a href="http://nuro.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Nuro" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_609d797080ab1d3ac4b576b59401bb53.setContent(html_8298f4594b2b60432d42e6df6db9db44);
+            
+        
+
+        marker_d3ce72c12f5ca0e0b6be502b7f68b009.bindPopup(popup_609d797080ab1d3ac4b576b59401bb53)
+        ;
+
+        
+    
+    
+                marker_d3ce72c12f5ca0e0b6be502b7f68b009.setIcon(div_icon_62b0388c3a8ba05f843a13cd7a6d5b16);
+            
+    
+            var marker_b331e08bb0862197a97badfbf4efbc58 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_fcdcb6c54552b006ef2e6a2113e4f01e = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_c62a6b7c6ccbc416a62e8b14f11b6c5f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_58c0f2cb9bbd920f141ab2c292668c2a = $(`<div id="html_58c0f2cb9bbd920f141ab2c292668c2a" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>OpenAI</b><br>San Francisco, California, U.S.<br>Founded: 2015<br>Employees: 4<br><br><a href="https://openai.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/OpenAI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_c62a6b7c6ccbc416a62e8b14f11b6c5f.setContent(html_58c0f2cb9bbd920f141ab2c292668c2a);
+            
+        
+
+        marker_b331e08bb0862197a97badfbf4efbc58.bindPopup(popup_c62a6b7c6ccbc416a62e8b14f11b6c5f)
+        ;
+
+        
+    
+    
+                marker_b331e08bb0862197a97badfbf4efbc58.setIcon(div_icon_fcdcb6c54552b006ef2e6a2113e4f01e);
+            
+    
+            var marker_68716ddc63823a628c786805f84b04b8 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_f37e86806b4e1d17e2c6e84564b3bf59 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10.296020061808795px;\n                    height:10.296020061808795px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_5e0ff2c18520d0fb1ef4118e5f359624 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f9a3613eecd2dc43141218437ededde2 = $(`<div id="html_f9a3613eecd2dc43141218437ededde2" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Perplexity AI</b><br>San Francisco, California, U.S.<br>Founded: 2022<br>Employees: 52<br><br><a href="https://perplexity.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Perplexity_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_5e0ff2c18520d0fb1ef4118e5f359624.setContent(html_f9a3613eecd2dc43141218437ededde2);
+            
+        
+
+        marker_68716ddc63823a628c786805f84b04b8.bindPopup(popup_5e0ff2c18520d0fb1ef4118e5f359624)
+        ;
+
+        
+    
+    
+                marker_68716ddc63823a628c786805f84b04b8.setIcon(div_icon_f37e86806b4e1d17e2c6e84564b3bf59);
+            
+    
+            var marker_2362143cfa9bdfdd1fadfbc16426233b = L.marker(
+                [43.0594237, -88.4040172],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_158b9729b7243d45d4df5252a0261760 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_06eb4fe539144e49085c00d3e2ac5b81 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a9115f2ebf4d5d7d3bd13e47aa9e033d = $(`<div id="html_a9115f2ebf4d5d7d3bd13e47aa9e033d" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>RAIC Labs</b><br>Delafield, WI, United States<br>Founded: 2019<br>Employees: Unknown<br><br><a href="https://en.wikipedia.org/wiki/RAIC_Labs" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_06eb4fe539144e49085c00d3e2ac5b81.setContent(html_a9115f2ebf4d5d7d3bd13e47aa9e033d);
+            
+        
+
+        marker_2362143cfa9bdfdd1fadfbc16426233b.bindPopup(popup_06eb4fe539144e49085c00d3e2ac5b81)
+        ;
+
+        
+    
+    
+                marker_2362143cfa9bdfdd1fadfbc16426233b.setIcon(div_icon_158b9729b7243d45d4df5252a0261760);
+            
+    
+            var marker_2abab7650114b3053fcf3c32e4bee429 = L.marker(
+                [40.7579554, -73.9855319],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_056dd7c459218a9f4bc64b24744427a8 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:11.606990707461406px;\n                    height:11.606990707461406px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_bd8b0beb5ce8f922d88fb95115201e00 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a3a47801f4a7147fc86649bc8a03dc0b = $(`<div id="html_a3a47801f4a7147fc86649bc8a03dc0b" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Runway</b><br>Manhattan, New York City, U.S.<br>Founded: 2018<br>Employees: 86<br><br><a href="https://runwayml.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Runway_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_bd8b0beb5ce8f922d88fb95115201e00.setContent(html_a3a47801f4a7147fc86649bc8a03dc0b);
+            
+        
+
+        marker_2abab7650114b3053fcf3c32e4bee429.bindPopup(popup_bd8b0beb5ce8f922d88fb95115201e00)
+        ;
+
+        
+    
+    
+                marker_2abab7650114b3053fcf3c32e4bee429.setIcon(div_icon_056dd7c459218a9f4bc64b24744427a8);
+            
+    
+            var marker_2ba194a7192112dd3f82427b56bceeba = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_1d8d417e7b5fdc7d2410a8d1ce538d10 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_0c53a7d1b8377faf220de441b5ae65f7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_34991e2b711331a71287151a5788628c = $(`<div id="html_34991e2b711331a71287151a5788628c" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Scale AI</b><br>San Francisco, California, United States<br>Founded: 2016<br>Employees: 1<br><br><a href="https://scale.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Scale_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_0c53a7d1b8377faf220de441b5ae65f7.setContent(html_34991e2b711331a71287151a5788628c);
+            
+        
+
+        marker_2ba194a7192112dd3f82427b56bceeba.bindPopup(popup_0c53a7d1b8377faf220de441b5ae65f7)
+        ;
+
+        
+    
+    
+                marker_2ba194a7192112dd3f82427b56bceeba.setIcon(div_icon_1d8d417e7b5fdc7d2410a8d1ce538d10);
+            
+    
+            var marker_eb97aedc9fa4ab3810aa5e565b6b9dd4 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_d6ae96b3e729e6df78b9c7a5623bd50d = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:12.0px;\n                    height:12.0px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_762915b6f7c7cadc94b4f09123d62517 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_978d3ff896968c496d43b913b5371b5d = $(`<div id="html_978d3ff896968c496d43b913b5371b5d" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Thinking Machines Lab</b><br>San Francisco, California, United States<br>Founded: 2025<br>Employees: 100<br><br><a href="https://thinkingmachines.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Thinking_Machines_Lab" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_762915b6f7c7cadc94b4f09123d62517.setContent(html_978d3ff896968c496d43b913b5371b5d);
+            
+        
+
+        marker_eb97aedc9fa4ab3810aa5e565b6b9dd4.bindPopup(popup_762915b6f7c7cadc94b4f09123d62517)
+        ;
+
+        
+    
+    
+                marker_eb97aedc9fa4ab3810aa5e565b6b9dd4.setIcon(div_icon_d6ae96b3e729e6df78b9c7a5623bd50d);
+            
+    
+            var marker_578ba54c517a5c95bfffb797a1b747ff = L.marker(
+                [37.3893889, -122.0832101],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_7ca3c4ea242e7381c4bacf0d652b7600 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_d7afb792d8be4fe68d440de597faffca = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f57e0118ed5ae990dfdc8958b7be599b = $(`<div id="html_f57e0118ed5ae990dfdc8958b7be599b" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Waymo</b><br>Mountain View, California, United States<br>Founded: 2004<br>Employees: 2<br><br><a href="https://waymo.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Waymo" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_d7afb792d8be4fe68d440de597faffca.setContent(html_f57e0118ed5ae990dfdc8958b7be599b);
+            
+        
+
+        marker_578ba54c517a5c95bfffb797a1b747ff.bindPopup(popup_d7afb792d8be4fe68d440de597faffca)
+        ;
+
+        
+    
+    
+                marker_578ba54c517a5c95bfffb797a1b747ff.setIcon(div_icon_7ca3c4ea242e7381c4bacf0d652b7600);
+            
+    
+            var marker_a9062482f4c778a30b6a4c1828310ee9 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_95fc8faaca00bc5b67afbfa0bc9472c9 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_4052051a4d1f910b3b929f0a1ff77cf8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4e73109edc4e87df0fb6c6f55d3c5fc3 = $(`<div id="html_4e73109edc4e87df0fb6c6f55d3c5fc3" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Writer</b><br>San Francisco, California, United States<br>Founded: 2020<br>Employees: Unknown<br><br><a href="http://writer.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Writer_Inc." target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_4052051a4d1f910b3b929f0a1ff77cf8.setContent(html_4e73109edc4e87df0fb6c6f55d3c5fc3);
+            
+        
+
+        marker_a9062482f4c778a30b6a4c1828310ee9.bindPopup(popup_4052051a4d1f910b3b929f0a1ff77cf8)
+        ;
+
+        
+    
+    
+                marker_a9062482f4c778a30b6a4c1828310ee9.setIcon(div_icon_95fc8faaca00bc5b67afbfa0bc9472c9);
+            
+    
+            var marker_bd2d36b65ab89dafbdb5aebf9525c181 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_fb33dd91cdd81027dce87392af1bf91f = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_445ebe096f89372be1b73e5c3c067234 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dc3c4a7797cb5e150fe198fbfad3d6a3 = $(`<div id="html_dc3c4a7797cb5e150fe198fbfad3d6a3" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Writesonic</b><br>San Francisco, California, United States<br>Founded: 2020<br>Employees: Unknown<br><br><a href="http://writesonic.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Writesonic" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_445ebe096f89372be1b73e5c3c067234.setContent(html_dc3c4a7797cb5e150fe198fbfad3d6a3);
+            
+        
+
+        marker_bd2d36b65ab89dafbdb5aebf9525c181.bindPopup(popup_445ebe096f89372be1b73e5c3c067234)
+        ;
+
+        
+    
+    
+                marker_bd2d36b65ab89dafbdb5aebf9525c181.setIcon(div_icon_fb33dd91cdd81027dce87392af1bf91f);
+            
+    
+            var marker_a03b01f25856000fa1a205207c8e2ec5 = L.marker(
+                [37.4443293, -122.1598465],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_b9e312e54795c728e58f93de40c1dc9e = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_5682aeb1f05fe144ea7f3588d0258074 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e5d70192df20d08727ea1ee26c3fb53b = $(`<div id="html_e5d70192df20d08727ea1ee26c3fb53b" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>xAI</b><br>Palo Alto, California, United States<br>Founded: 2023<br>Employees: 1<br><br><a href="https://x.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/XAI_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_5682aeb1f05fe144ea7f3588d0258074.setContent(html_e5d70192df20d08727ea1ee26c3fb53b);
+            
+        
+
+        marker_a03b01f25856000fa1a205207c8e2ec5.bindPopup(popup_5682aeb1f05fe144ea7f3588d0258074)
+        ;
+
+        
+    
+    
+                marker_a03b01f25856000fa1a205207c8e2ec5.setIcon(div_icon_b9e312e54795c728e58f93de40c1dc9e);
+            
+    
+            var marker_3ed7e89fbc45abf9b5ee55e8f8ce493e = L.marker(
+                [37.5600336, -122.2688522],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_3eda8145d6dfa81c99df48018dc5c163 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_8c8542e113dc67180b4e49314474b441 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7824a049c4ef5f20cb13976a14a4e538 = $(`<div id="html_7824a049c4ef5f20cb13976a14a4e538" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Zoox</b><br>Foster City, California<br>Founded: 2014<br>Employees: 2<br><br><a href="http://zoox.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Zoox" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_8c8542e113dc67180b4e49314474b441.setContent(html_7824a049c4ef5f20cb13976a14a4e538);
+            
+        
+
+        marker_3ed7e89fbc45abf9b5ee55e8f8ce493e.bindPopup(popup_8c8542e113dc67180b4e49314474b441)
+        ;
+
+        
+    
+    
+                marker_3ed7e89fbc45abf9b5ee55e8f8ce493e.setIcon(div_icon_3eda8145d6dfa81c99df48018dc5c163);
+            
+    
+            var marker_d014394ba63f01d2657eb7f489069818 = L.marker(
+                [40.7127281, -74.0060152],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_66a3d59f2454e727bcf7d7d07c044fa9 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_fccffab86b0433dcc6edd105dcc52c0a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c016de52deb1d9404089c7bd37ce9b37 = $(`<div id="html_c016de52deb1d9404089c7bd37ce9b37" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Dataiku</b><br>New York City, United States<br>Founded: 2013<br>Employees: 1<br><br><a href="http://dataiku.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Dataiku" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_fccffab86b0433dcc6edd105dcc52c0a.setContent(html_c016de52deb1d9404089c7bd37ce9b37);
+            
+        
+
+        marker_d014394ba63f01d2657eb7f489069818.bindPopup(popup_fccffab86b0433dcc6edd105dcc52c0a)
+        ;
+
+        
+    
+    
+                marker_d014394ba63f01d2657eb7f489069818.setIcon(div_icon_66a3d59f2454e727bcf7d7d07c044fa9);
+            
+    
+            var marker_4b2755a7bf9a713357e73e1f39192d26 = L.marker(
+                [37.7879363, -122.4075201],
+                {
+}
+            ).addTo(marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2);
+        
+    
+            var div_icon_c6dcf154497137668e2eab669aba6e89 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:blue;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_94e5d28ff90cba0225c5d5d1aafdd107 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d70604a484857db50e2dd4c2b847fcd8 = $(`<div id="html_d70604a484857db50e2dd4c2b847fcd8" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Poolside AI</b><br>San Francisco, United States<br>Founded: 2023<br>Employees: Unknown<br><br><a href="https://poolside.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Poolside_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_94e5d28ff90cba0225c5d5d1aafdd107.setContent(html_d70604a484857db50e2dd4c2b847fcd8);
+            
+        
+
+        marker_4b2755a7bf9a713357e73e1f39192d26.bindPopup(popup_94e5d28ff90cba0225c5d5d1aafdd107)
+        ;
+
+        
+    
+    
+                marker_4b2755a7bf9a713357e73e1f39192d26.setIcon(div_icon_c6dcf154497137668e2eab669aba6e89);
+            
+    
+            marker_cluster_3e24d85b7cbfb0e988bd5094ff329bd2.addTo(feature_group_760d41b6710e16639510a969c7ed5b47);
+        
+    
+            feature_group_760d41b6710e16639510a969c7ed5b47.addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+        
+    
+            var feature_group_7a71b67de1a7cd72896dfdb2af7dc811 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_f73bf9dac777be3b947ded05f90d3e90 = L.markerClusterGroup(
+                {
+}
+            );
+            marker_cluster_f73bf9dac777be3b947ded05f90d3e90.options.iconCreateFunction =
+                function(cluster) {
+        return L.divIcon({
+            html: '<div style="background:green;color:white;border-radius:50%;'
+                  + 'width:40px;height:40px;line-height:40px;text-align:center;'
+                  + 'font-weight:bold;border:2px solid white;">'
+                  + cluster.getChildCount() +
+                  '</div>',
+            className: 'marker-cluster-custom',
+            iconSize: [40, 40]
+        });
+    };
+        
+    
+            var marker_ef59ad58e973b8f6dadd31f19e459914 = L.marker(
+                [48.8534951, 2.3483915],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_2fd7e0029e1b90057b945f86b12bed71 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:11.72545505663595px;\n                    height:11.72545505663595px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_ede5888fb17602e0a4aea36c2b9ff260 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f4b1d870e08621752253bd8f6aefbea0 = $(`<div id="html_f4b1d870e08621752253bd8f6aefbea0" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>H Company</b><br>Paris, France<br>Founded: 2023<br>Employees: 90<br><br><a href="http://hcompany.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/H_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_ede5888fb17602e0a4aea36c2b9ff260.setContent(html_f4b1d870e08621752253bd8f6aefbea0);
+            
+        
+
+        marker_ef59ad58e973b8f6dadd31f19e459914.bindPopup(popup_ede5888fb17602e0a4aea36c2b9ff260)
+        ;
+
+        
+    
+    
+                marker_ef59ad58e973b8f6dadd31f19e459914.setIcon(div_icon_2fd7e0029e1b90057b945f86b12bed71);
+            
+    
+            var marker_9c833793c60d6dd4d4d956d8262dc55b = L.marker(
+                [48.8534951, 2.3483915],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_84b3bafee8c455c11b4a60210fae676a = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_f275bd7a232119502591a2d03bd02443 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_34b9c1680c45bc786ccda5358a9b9453 = $(`<div id="html_34b9c1680c45bc786ccda5358a9b9453" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>LightOn</b><br>Paris, France<br>Founded: 2016<br>Employees: 41<br><br><a href="https://lighton.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/LightOn" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_f275bd7a232119502591a2d03bd02443.setContent(html_34b9c1680c45bc786ccda5358a9b9453);
+            
+        
+
+        marker_9c833793c60d6dd4d4d956d8262dc55b.bindPopup(popup_f275bd7a232119502591a2d03bd02443)
+        ;
+
+        
+    
+    
+                marker_9c833793c60d6dd4d4d956d8262dc55b.setIcon(div_icon_84b3bafee8c455c11b4a60210fae676a);
+            
+    
+            var marker_58c8acacd346f933d650bbd335c87b90 = L.marker(
+                [48.8534951, 2.3483915],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_aba145db4d0f8051e2465448bf74c97e = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.806179973983888px;\n                    height:13.806179973983888px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_9a62729db4eadeb9e67fcf7cd27a81b8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dcd38cb16a8bdd3caf566dac263fa5a2 = $(`<div id="html_dcd38cb16a8bdd3caf566dac263fa5a2" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Linagora</b><br>Paris, France<br>Founded: 2000<br>Employees: 200<br><br><a href="https://www.linagora.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Linagora" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_9a62729db4eadeb9e67fcf7cd27a81b8.setContent(html_dcd38cb16a8bdd3caf566dac263fa5a2);
+            
+        
+
+        marker_58c8acacd346f933d650bbd335c87b90.bindPopup(popup_9a62729db4eadeb9e67fcf7cd27a81b8)
+        ;
+
+        
+    
+    
+                marker_58c8acacd346f933d650bbd335c87b90.setIcon(div_icon_aba145db4d0f8051e2465448bf74c97e);
+            
+    
+            var marker_6fd979ca472b5ffbe8e9f534eb2edd88 = L.marker(
+                [48.8534951, 2.3483915],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_676fd2e2fdc47ee308bd8942aa4f40ca = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:15.264408266101654px;\n                    height:15.264408266101654px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_36fc41e179efd44efa107db36c708975 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bb0c45340b4ce9cf00fcc6cef4069c19 = $(`<div id="html_bb0c45340b4ce9cf00fcc6cef4069c19" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Mistral AI</b><br>Paris, France<br>Founded: 2023<br>Employees: 350<br><br><a href="https://mistral.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Mistral_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_36fc41e179efd44efa107db36c708975.setContent(html_bb0c45340b4ce9cf00fcc6cef4069c19);
+            
+        
+
+        marker_6fd979ca472b5ffbe8e9f534eb2edd88.bindPopup(popup_36fc41e179efd44efa107db36c708975)
+        ;
+
+        
+    
+    
+                marker_6fd979ca472b5ffbe8e9f534eb2edd88.setIcon(div_icon_676fd2e2fdc47ee308bd8942aa4f40ca);
+            
+    
+            var marker_e3cf4c9a69620cb0a6e4691ee72f4e52 = L.marker(
+                [48.8534951, 2.3483915],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_82dbbe8664aec638e3701ce599088ae5 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:15.264408266101654px;\n                    height:15.264408266101654px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_8c9614ef9393a24bc91db4c4e3b85ec6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f20c3863ea76ccb4e7b0b2f01569603a = $(`<div id="html_f20c3863ea76ccb4e7b0b2f01569603a" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Owkin</b><br>Paris, France<br>Founded: 2016<br>Employees: 350<br><br><a href="https://owkin.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Owkin" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_8c9614ef9393a24bc91db4c4e3b85ec6.setContent(html_f20c3863ea76ccb4e7b0b2f01569603a);
+            
+        
+
+        marker_e3cf4c9a69620cb0a6e4691ee72f4e52.bindPopup(popup_8c9614ef9393a24bc91db4c4e3b85ec6)
+        ;
+
+        
+    
+    
+                marker_e3cf4c9a69620cb0a6e4691ee72f4e52.setIcon(div_icon_82dbbe8664aec638e3701ce599088ae5);
+            
+    
+            var marker_c2636309cd398424350b74f2de318692 = L.marker(
+                [49.4093582, 8.694724],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_e983e199b2b11a2579ab071bebd0a0a9 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10.245421056587617px;\n                    height:10.245421056587617px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_734d5f63a76fbb3f9e941760ce50a37a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1c259c6b3f185e8511729d0bedb53789 = $(`<div id="html_1c259c6b3f185e8511729d0bedb53789" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Aleph Alpha</b><br>Heidelberg, Germany<br>Founded: 2019<br>Employees: 51<br><br><a href="https://aleph-alpha.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Aleph_Alpha" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_734d5f63a76fbb3f9e941760ce50a37a.setContent(html_1c259c6b3f185e8511729d0bedb53789);
+            
+        
+
+        marker_c2636309cd398424350b74f2de318692.bindPopup(popup_734d5f63a76fbb3f9e941760ce50a37a)
+        ;
+
+        
+    
+    
+                marker_c2636309cd398424350b74f2de318692.setIcon(div_icon_e983e199b2b11a2579ab071bebd0a0a9);
+            
+    
+            var marker_0ae36d8863279ed4b7828e688d024886 = L.marker(
+                [50.938361, 6.959974],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_d045b04b9637d8a9f8f540fe16de77c4 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_595f45014a48be5cb2499f2f1f09a6f3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f135dc0283b67f2680dabedfd1f73301 = $(`<div id="html_f135dc0283b67f2680dabedfd1f73301" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>DeepL</b><br>Cologne, North Rhine-Westphalia, Germany<br>Founded: Unknown<br>Employees: Unknown<br><br><a href="https://en.wikipedia.org/wiki/DeepL" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_595f45014a48be5cb2499f2f1f09a6f3.setContent(html_f135dc0283b67f2680dabedfd1f73301);
+            
+        
+
+        marker_0ae36d8863279ed4b7828e688d024886.bindPopup(popup_595f45014a48be5cb2499f2f1f09a6f3)
+        ;
+
+        
+    
+    
+                marker_0ae36d8863279ed4b7828e688d024886.setIcon(div_icon_d045b04b9637d8a9f8f540fe16de77c4);
+            
+    
+            var marker_ebf6108e9cf50221d2eb9173107ed4f2 = L.marker(
+                [59.3251172, 18.0710935],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_561f10d1169919b42014736193f900e7 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:12.475087476285747px;\n                    height:12.475087476285747px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_0a6dd409e9540c4e1820762706503bd2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fa88f61d2208429fabe31416b5c48d3e = $(`<div id="html_fa88f61d2208429fabe31416b5c48d3e" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Lovable</b><br>Stockholm, Sweden<br>Founded: 2023<br>Employees: 120<br><br><a href="https://lovable.dev/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Lovable_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_0a6dd409e9540c4e1820762706503bd2.setContent(html_fa88f61d2208429fabe31416b5c48d3e);
+            
+        
+
+        marker_ebf6108e9cf50221d2eb9173107ed4f2.bindPopup(popup_0a6dd409e9540c4e1820762706503bd2)
+        ;
+
+        
+    
+    
+                marker_ebf6108e9cf50221d2eb9173107ed4f2.setIcon(div_icon_561f10d1169919b42014736193f900e7);
+            
+    
+            var marker_e87600a1ae902734827ffea519d46e0a = L.marker(
+                [50.4500336, 30.5241361],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_9e27f6e5a21841e9db0c9a8b025afe89 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_8988b0185664d0c92fa732408ebb3150 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_212160805194d01ce6e0f8d4ade3cd67 = $(`<div id="html_212160805194d01ce6e0f8d4ade3cd67" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Respeecher</b><br>Kyiv, Ukraine<br>Founded: 2018<br>Employees: Unknown<br><br><a href="https://www.respeecher.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Respeecher" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_8988b0185664d0c92fa732408ebb3150.setContent(html_212160805194d01ce6e0f8d4ade3cd67);
+            
+        
+
+        marker_e87600a1ae902734827ffea519d46e0a.bindPopup(popup_8988b0185664d0c92fa732408ebb3150)
+        ;
+
+        
+    
+    
+                marker_e87600a1ae902734827ffea519d46e0a.setIcon(div_icon_9e27f6e5a21841e9db0c9a8b025afe89);
+            
+    
+            var marker_98bc97fa503bd59f728b54a1c3d79ec1 = L.marker(
+                [51.5074456, -0.1277653],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_ee9ee4deeeb53255299d4da6cd391ccc = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_be5332ba924f9324a21cc52141e59ec6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d8d72ebbcf92c26632fc33b34a550f8e = $(`<div id="html_d8d72ebbcf92c26632fc33b34a550f8e" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>DeepMind</b><br>London, England<br>Founded: 2010<br>Employees: 6<br><br><a href="https://deepmind.google/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Google_DeepMind" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_be5332ba924f9324a21cc52141e59ec6.setContent(html_d8d72ebbcf92c26632fc33b34a550f8e);
+            
+        
+
+        marker_98bc97fa503bd59f728b54a1c3d79ec1.bindPopup(popup_be5332ba924f9324a21cc52141e59ec6)
+        ;
+
+        
+    
+    
+                marker_98bc97fa503bd59f728b54a1c3d79ec1.setIcon(div_icon_ee9ee4deeeb53255299d4da6cd391ccc);
+            
+    
+            var marker_451f2c21e39d33ee3f05dcae723ef04d = L.marker(
+                [51.5074456, -0.1277653],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_eba0ba2fcca627ebd001c5df2353a24f = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_bae4bd3be45bfc53b161257acd5e657e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f91cb0a4223ec32cfef816892a8e4962 = $(`<div id="html_f91cb0a4223ec32cfef816892a8e4962" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Gradient Labs</b><br>London<br>Founded: 2023<br>Employees: Unknown<br><br><a href="https://gradient-labs.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Gradient_Labs" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_bae4bd3be45bfc53b161257acd5e657e.setContent(html_f91cb0a4223ec32cfef816892a8e4962);
+            
+        
+
+        marker_451f2c21e39d33ee3f05dcae723ef04d.bindPopup(popup_bae4bd3be45bfc53b161257acd5e657e)
+        ;
+
+        
+    
+    
+                marker_451f2c21e39d33ee3f05dcae723ef04d.setIcon(div_icon_eba0ba2fcca627ebd001c5df2353a24f);
+            
+    
+            var marker_cd34bb77be0425bbac1bc629ed712c50 = L.marker(
+                [51.5074456, -0.1277653],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_1f5863492f78ed626053e9b35c8fb578 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_68e7c043d085a80aed86a9f13d59245a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2ec09ace69beaff5e1892b630ba64dea = $(`<div id="html_2ec09ace69beaff5e1892b630ba64dea" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Isomorphic Labs</b><br>London, United Kingdom<br>Founded: 2021<br>Employees: Unknown<br><br><a href="https://www.isomorphiclabs.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Isomorphic_Labs" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_68e7c043d085a80aed86a9f13d59245a.setContent(html_2ec09ace69beaff5e1892b630ba64dea);
+            
+        
+
+        marker_cd34bb77be0425bbac1bc629ed712c50.bindPopup(popup_68e7c043d085a80aed86a9f13d59245a)
+        ;
+
+        
+    
+    
+                marker_cd34bb77be0425bbac1bc629ed712c50.setIcon(div_icon_1f5863492f78ed626053e9b35c8fb578);
+            
+    
+            var marker_adfa355760ac4f054e80ef5014d2ec00 = L.marker(
+                [51.7520131, -1.2578499],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_2276c4c3b344714efcbfcd2adfd87532 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:11.2503675803502px;\n                    height:11.2503675803502px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_b2c84d899931e3defae92bfa4f170d4a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_eed4999b48d1884c0ed52b57883d3d39 = $(`<div id="html_eed4999b48d1884c0ed52b57883d3d39" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Mind Foundry</b><br>Oxford, Oxfordshire, United Kingdom<br>Founded: 2016<br>Employees: 75<br><br><a href="https://www.mindfoundry.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Mind_Foundry" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_b2c84d899931e3defae92bfa4f170d4a.setContent(html_eed4999b48d1884c0ed52b57883d3d39);
+            
+        
+
+        marker_adfa355760ac4f054e80ef5014d2ec00.bindPopup(popup_b2c84d899931e3defae92bfa4f170d4a)
+        ;
+
+        
+    
+    
+                marker_adfa355760ac4f054e80ef5014d2ec00.setIcon(div_icon_2276c4c3b344714efcbfcd2adfd87532);
+            
+    
+            var marker_c477caf6409714f428b5a78c1f3da7a6 = L.marker(
+                [53.4794892, -2.2451148],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_1682d1b0ca0d285570e36ed6b641055f = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_f090e4a567eaf8c80ab4c3121c5d5f33 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e8d4d87138fe98fcba9fa2575f2aa129 = $(`<div id="html_e8d4d87138fe98fcba9fa2575f2aa129" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Peak</b><br>Manchester, England<br>Founded: 2015<br>Employees: Unknown<br><br><a href="http://peak.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Peak_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_f090e4a567eaf8c80ab4c3121c5d5f33.setContent(html_e8d4d87138fe98fcba9fa2575f2aa129);
+            
+        
+
+        marker_c477caf6409714f428b5a78c1f3da7a6.bindPopup(popup_f090e4a567eaf8c80ab4c3121c5d5f33)
+        ;
+
+        
+    
+    
+                marker_c477caf6409714f428b5a78c1f3da7a6.setIcon(div_icon_1682d1b0ca0d285570e36ed6b641055f);
+            
+    
+            var marker_4e1c948b6dec6df88d859f94e60593d3 = L.marker(
+                [51.5074456, -0.1277653],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_d7b4c8590c2e7ca509d44e8813554656 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.382693528269645px;\n                    height:13.382693528269645px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_1769f63afc70e6dc411b4d41027ae2f9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c8742e6f1cfa927798ba392019ca05b1 = $(`<div id="html_c8742e6f1cfa927798ba392019ca05b1" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Stability AI</b><br>London, England, UK<br>Founded: 2019<br>Employees: 170<br><br><a href="https://stability.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Stability_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_1769f63afc70e6dc411b4d41027ae2f9.setContent(html_c8742e6f1cfa927798ba392019ca05b1);
+            
+        
+
+        marker_4e1c948b6dec6df88d859f94e60593d3.bindPopup(popup_1769f63afc70e6dc411b4d41027ae2f9)
+        ;
+
+        
+    
+    
+                marker_4e1c948b6dec6df88d859f94e60593d3.setIcon(div_icon_d7b4c8590c2e7ca509d44e8813554656);
+            
+    
+            var marker_07c01148d95a83db382a34dd73d712b4 = L.marker(
+                [51.5074456, -0.1277653],
+                {
+}
+            ).addTo(marker_cluster_f73bf9dac777be3b947ded05f90d3e90);
+        
+    
+            var div_icon_b0b73e304447941c85b03fb151992e5b = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:16.44217613696546px;\n                    height:16.44217613696546px;\n                    background:green;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_7a510d6213071f78a79dc3e4a9a76033 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c49bd68df8f0e68d0db4ac31c3820f37 = $(`<div id="html_c49bd68df8f0e68d0db4ac31c3820f37" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Synthesia</b><br>London, United Kingdom<br>Founded: 2017<br>Employees: 550<br><br><a href="https://www.synthesia.io" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Synthesia_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_7a510d6213071f78a79dc3e4a9a76033.setContent(html_c49bd68df8f0e68d0db4ac31c3820f37);
+            
+        
+
+        marker_07c01148d95a83db382a34dd73d712b4.bindPopup(popup_7a510d6213071f78a79dc3e4a9a76033)
+        ;
+
+        
+    
+    
+                marker_07c01148d95a83db382a34dd73d712b4.setIcon(div_icon_b0b73e304447941c85b03fb151992e5b);
+            
+    
+            marker_cluster_f73bf9dac777be3b947ded05f90d3e90.addTo(feature_group_7a71b67de1a7cd72896dfdb2af7dc811);
+        
+    
+            feature_group_7a71b67de1a7cd72896dfdb2af7dc811.addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+        
+    
+            var feature_group_a993c176e6afb8ba98ec6af06c8c0d5c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf = L.markerClusterGroup(
+                {
+}
+            );
+            marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf.options.iconCreateFunction =
+                function(cluster) {
+        return L.divIcon({
+            html: '<div style="background:red;color:white;border-radius:50%;'
+                  + 'width:40px;height:40px;line-height:40px;text-align:center;'
+                  + 'font-weight:bold;border:2px solid white;">'
+                  + cluster.getChildCount() +
+                  '</div>',
+            className: 'marker-cluster-custom',
+            iconSize: [40, 40]
+        });
+    };
+        
+    
+            var marker_3f16dbc4171a7f2dc056bff84831c402 = L.marker(
+                [39.9057136, 116.3912972],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_79322c3e9aab3993b1c728a506a9ee9b = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:12.0px;\n                    height:12.0px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_2df4025217115b92926add2af97f53f7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3ae226eb98151434f2ed80c771db1afc = $(`<div id="html_3ae226eb98151434f2ed80c771db1afc" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>01.AI</b><br>Beijing, China<br>Founded: 2023<br>Employees: 100<br><br><a href="https://www.01.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/01.AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_2df4025217115b92926add2af97f53f7.setContent(html_3ae226eb98151434f2ed80c771db1afc);
+            
+        
+
+        marker_3f16dbc4171a7f2dc056bff84831c402.bindPopup(popup_2df4025217115b92926add2af97f53f7)
+        ;
+
+        
+    
+    
+                marker_3f16dbc4171a7f2dc056bff84831c402.setIcon(div_icon_79322c3e9aab3993b1c728a506a9ee9b);
+            
+    
+            var marker_7dae943c7e0f1ca77b260145637c83af = L.marker(
+                [39.9057136, 116.3912972],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_b78b100dc73e9e9b780f14bc9b05e329 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_ce563295238d2424456e282fe4359f01 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e88cc534404fa624c91346d94554b08e = $(`<div id="html_e88cc534404fa624c91346d94554b08e" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>4Paradigm</b><br>Beijing, China<br>Founded: 2014<br>Employees: 1<br><br><a href="http://www.4paradigm.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/4Paradigm" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_ce563295238d2424456e282fe4359f01.setContent(html_e88cc534404fa624c91346d94554b08e);
+            
+        
+
+        marker_7dae943c7e0f1ca77b260145637c83af.bindPopup(popup_ce563295238d2424456e282fe4359f01)
+        ;
+
+        
+    
+    
+                marker_7dae943c7e0f1ca77b260145637c83af.setIcon(div_icon_b78b100dc73e9e9b780f14bc9b05e329);
+            
+    
+            var marker_3fbdfcf9516d79806fd76cfeecfcbf16 = L.marker(
+                [39.9057136, 116.3912972],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_78f0a36452c6b67d9186fb32e19398cb = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.382693528269645px;\n                    height:13.382693528269645px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_1b20a3dde31fb7931e1fb5cada99817b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b427fb5203c32e0645e1df697c91cfbd = $(`<div id="html_b427fb5203c32e0645e1df697c91cfbd" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Baichuan</b><br>Beijing, China<br>Founded: 2023<br>Employees: 170<br><br><a href="https://www.baichuan-ai.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Baichuan" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_1b20a3dde31fb7931e1fb5cada99817b.setContent(html_b427fb5203c32e0645e1df697c91cfbd);
+            
+        
+
+        marker_3fbdfcf9516d79806fd76cfeecfcbf16.bindPopup(popup_1b20a3dde31fb7931e1fb5cada99817b)
+        ;
+
+        
+    
+    
+                marker_3fbdfcf9516d79806fd76cfeecfcbf16.setIcon(div_icon_78f0a36452c6b67d9186fb32e19398cb);
+            
+    
+            var marker_5e9f91c47dbb9d552126b130bae95ab7 = L.marker(
+                [30.2489634, 120.2052342],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_68d2ce396f06da5627f19fdc04c44283 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.224719895935547px;\n                    height:13.224719895935547px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_524d6f5ea3dd0c78d53cecc52e1cb98f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_86e5abab20c8a9d03ab90428c783506b = $(`<div id="html_86e5abab20c8a9d03ab90428c783506b" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>DeepSeek</b><br>Hangzhou, Zhejiang, China<br>Founded: 2023<br>Employees: 160<br><br><a href="https://www.deepseek.com/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/DeepSeek" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_524d6f5ea3dd0c78d53cecc52e1cb98f.setContent(html_86e5abab20c8a9d03ab90428c783506b);
+            
+        
+
+        marker_5e9f91c47dbb9d552126b130bae95ab7.bindPopup(popup_524d6f5ea3dd0c78d53cecc52e1cb98f)
+        ;
+
+        
+    
+    
+                marker_5e9f91c47dbb9d552126b130bae95ab7.setIcon(div_icon_68d2ce396f06da5627f19fdc04c44283);
+            
+    
+            var marker_9690f638c7d68ce720e64bbf4ac85e2b = L.marker(
+                [31.2312707, 121.4700152],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_fd89c61db7afa2310819f6e4763f9d13 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.806179973983888px;\n                    height:13.806179973983888px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_85830d56c3ed262b286f4b25dcba917b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e3028ea81532673d02f65c65baddae81 = $(`<div id="html_e3028ea81532673d02f65c65baddae81" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>MiniMax</b><br>Shanghai, China<br>Founded: 2021<br>Employees: 200<br><br><a href="https://www.minimax.io/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/MiniMax_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_85830d56c3ed262b286f4b25dcba917b.setContent(html_e3028ea81532673d02f65c65baddae81);
+            
+        
+
+        marker_9690f638c7d68ce720e64bbf4ac85e2b.bindPopup(popup_85830d56c3ed262b286f4b25dcba917b)
+        ;
+
+        
+    
+    
+                marker_9690f638c7d68ce720e64bbf4ac85e2b.setIcon(div_icon_fd89c61db7afa2310819f6e4763f9d13);
+            
+    
+            var marker_2e5333f40baa09eed87e3b0f25040590 = L.marker(
+                [39.9057136, 116.3912972],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_ee280f84ad9ac41819093dae55ad58ba = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.806179973983888px;\n                    height:13.806179973983888px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_25101d1f9665edc7b6478d0c7e40d375 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5883da962c0e57bf19cb18dc60a25435 = $(`<div id="html_5883da962c0e57bf19cb18dc60a25435" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Moonshot AI</b><br>Beijing, China<br>Founded: 2023<br>Employees: 200<br><br><a href="https://www.moonshot.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Moonshot_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_25101d1f9665edc7b6478d0c7e40d375.setContent(html_5883da962c0e57bf19cb18dc60a25435);
+            
+        
+
+        marker_2e5333f40baa09eed87e3b0f25040590.bindPopup(popup_25101d1f9665edc7b6478d0c7e40d375)
+        ;
+
+        
+    
+    
+                marker_2e5333f40baa09eed87e3b0f25040590.setIcon(div_icon_ee280f84ad9ac41819093dae55ad58ba);
+            
+    
+            var marker_8d8c6787d67895598847f0492d6ad862 = L.marker(
+                [22.4241672, 114.211487],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_11c3174576a8e6a75015af998042a247 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_fa58ef9614176acd517b31e05a76d084 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2eae85404120001d2cc620b210e2e668 = $(`<div id="html_2eae85404120001d2cc620b210e2e668" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>SenseTime</b><br>Science Park, Hong Kong<br>Founded: 2014<br>Employees: 3<br><br><a href="https://www.sensetime.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/SenseTime" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_fa58ef9614176acd517b31e05a76d084.setContent(html_2eae85404120001d2cc620b210e2e668);
+            
+        
+
+        marker_8d8c6787d67895598847f0492d6ad862.bindPopup(popup_fa58ef9614176acd517b31e05a76d084)
+        ;
+
+        
+    
+    
+                marker_8d8c6787d67895598847f0492d6ad862.setIcon(div_icon_11c3174576a8e6a75015af998042a247);
+            
+    
+            var marker_8046d75ad2c74cfc9dabedf1f42b7bf0 = L.marker(
+                [31.2312707, 121.4700152],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_6c798ed579533d0e1ab4e6011fee7a3a = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_90262a2ccc3124ebe27bd471b6d0bda4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9ba1c7f855eda53013d704c32ca3bdac = $(`<div id="html_9ba1c7f855eda53013d704c32ca3bdac" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>StepFun</b><br>Shanghai, China<br>Founded: 2023<br>Employees: Unknown<br><br><a href="https://www.stepfun.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/StepFun" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_90262a2ccc3124ebe27bd471b6d0bda4.setContent(html_9ba1c7f855eda53013d704c32ca3bdac);
+            
+        
+
+        marker_8046d75ad2c74cfc9dabedf1f42b7bf0.bindPopup(popup_90262a2ccc3124ebe27bd471b6d0bda4)
+        ;
+
+        
+    
+    
+                marker_8046d75ad2c74cfc9dabedf1f42b7bf0.setIcon(div_icon_6c798ed579533d0e1ab4e6011fee7a3a);
+            
+    
+            var marker_7eb223ed05f7732c43e461aee1ff7db2 = L.marker(
+                [39.9057136, 116.3912972],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_564f9a69302214c8b908c38822ff5891 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:17.418539921951663px;\n                    height:17.418539921951663px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_0fbc9b282333662e50fd7f0254d542d8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f5fd0728b56c255c3dd405009ce460df = $(`<div id="html_f5fd0728b56c255c3dd405009ce460df" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Zhipu AI</b><br>Beijing, China<br>Founded: 2019<br>Employees: 800<br><br><a href="https://zhipuai.cn/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Zhipu_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_0fbc9b282333662e50fd7f0254d542d8.setContent(html_f5fd0728b56c255c3dd405009ce460df);
+            
+        
+
+        marker_7eb223ed05f7732c43e461aee1ff7db2.bindPopup(popup_0fbc9b282333662e50fd7f0254d542d8)
+        ;
+
+        
+    
+    
+                marker_7eb223ed05f7732c43e461aee1ff7db2.setIcon(div_icon_564f9a69302214c8b908c38822ff5891);
+            
+    
+            var marker_642923a3d45a5080850c43d59d0165b6 = L.marker(
+                [22.2865158, 114.150208],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_27f1909662f804aa8541fa86010c6350 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_003d39f8a3bd1ac999de1983b32c0c33 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_768b69ae6dd00ba0d9ae76729b4f6597 = $(`<div id="html_768b69ae6dd00ba0d9ae76729b4f6597" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Artisse AI</b><br>Sheung Wan, Hong Kong<br>Founded: 2022<br>Employees: Unknown<br><br><a href="http://artisse.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Artisse_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_003d39f8a3bd1ac999de1983b32c0c33.setContent(html_768b69ae6dd00ba0d9ae76729b4f6597);
+            
+        
+
+        marker_642923a3d45a5080850c43d59d0165b6.bindPopup(popup_003d39f8a3bd1ac999de1983b32c0c33)
+        ;
+
+        
+    
+    
+                marker_642923a3d45a5080850c43d59d0165b6.setIcon(div_icon_27f1909662f804aa8541fa86010c6350);
+            
+    
+            var marker_57f6f47c8bae4ede124e08f0b9e00b37 = L.marker(
+                [19.054999, 72.8692035],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_7a94f5898b83694fae189bb90c9c53e6 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:13.753536428138855px;\n                    height:13.753536428138855px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_9545989e9c2286074ebf3d4cb0152dd9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f1627744c38604abc90a731378c64a31 = $(`<div id="html_f1627744c38604abc90a731378c64a31" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Haptik</b><br>Mumbai, India<br>Founded: 2013<br>Employees: 196<br><br><a href="https://en.wikipedia.org/wiki/Haptik" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_9545989e9c2286074ebf3d4cb0152dd9.setContent(html_f1627744c38604abc90a731378c64a31);
+            
+        
+
+        marker_57f6f47c8bae4ede124e08f0b9e00b37.bindPopup(popup_9545989e9c2286074ebf3d4cb0152dd9)
+        ;
+
+        
+    
+    
+                marker_57f6f47c8bae4ede124e08f0b9e00b37.setIcon(div_icon_7a94f5898b83694fae189bb90c9c53e6);
+            
+    
+            var marker_2d01023d706a8619ef5840e9aacfd090 = L.marker(
+                [12.9767936, 77.590082],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_da32bece5c5e7306e783cefd1c6171bf = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_5cd9ea1386df235cb316a94b03a5cdd3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bda39698a92114f877d6387281e98f83 = $(`<div id="html_bda39698a92114f877d6387281e98f83" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Sarvam AI</b><br>Bengaluru, Karnataka, India<br>Founded: 2023<br>Employees: Unknown<br><br><a href="https://www.sarvam.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Sarvam_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_5cd9ea1386df235cb316a94b03a5cdd3.setContent(html_bda39698a92114f877d6387281e98f83);
+            
+        
+
+        marker_2d01023d706a8619ef5840e9aacfd090.bindPopup(popup_5cd9ea1386df235cb316a94b03a5cdd3)
+        ;
+
+        
+    
+    
+                marker_2d01023d706a8619ef5840e9aacfd090.setIcon(div_icon_da32bece5c5e7306e783cefd1c6171bf);
+            
+    
+            var marker_f9888855ec22ebd4f0876774fa472f99 = L.marker(
+                [12.9767936, 77.590082],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_8aee3388a2c137c3b0208e2971b076e8 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_7246c3b3fe7b009e2d89ce98d899519e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_40bc61ae6ffe870e967b62d41c42ed04 = $(`<div id="html_40bc61ae6ffe870e967b62d41c42ed04" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>NeuralGarage</b><br>Bangalore, India<br>Founded: 2021<br>Employees: Unknown<br><br><a href="https://visualdub.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/NeuralGarage" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_7246c3b3fe7b009e2d89ce98d899519e.setContent(html_40bc61ae6ffe870e967b62d41c42ed04);
+            
+        
+
+        marker_f9888855ec22ebd4f0876774fa472f99.bindPopup(popup_7246c3b3fe7b009e2d89ce98d899519e)
+        ;
+
+        
+    
+    
+                marker_f9888855ec22ebd4f0876774fa472f99.setIcon(div_icon_8aee3388a2c137c3b0208e2971b076e8);
+            
+    
+            var marker_146af5922b1cfedbfe00889dff8ddc6f = L.marker(
+                [32.0852997, 34.7818064],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_5f8214216dfabf6613130660a52aeb56 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_16b51d8f867f85517892f65246cc470b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d8de4b6164deefb303e34f96b0f97d34 = $(`<div id="html_d8de4b6164deefb303e34f96b0f97d34" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>AI21 Labs</b><br>Tel Aviv, Israel<br>Founded: 2017<br>Employees: Unknown<br><br><a href="https://ai21.com" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/AI21_Labs" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_16b51d8f867f85517892f65246cc470b.setContent(html_d8de4b6164deefb303e34f96b0f97d34);
+            
+        
+
+        marker_146af5922b1cfedbfe00889dff8ddc6f.bindPopup(popup_16b51d8f867f85517892f65246cc470b)
+        ;
+
+        
+    
+    
+                marker_146af5922b1cfedbfe00889dff8ddc6f.setIcon(div_icon_5f8214216dfabf6613130660a52aeb56);
+            
+    
+            var marker_2d3c42ade312ebd976c4d5ceca03a7f2 = L.marker(
+                [35.6768601, 139.7638947],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_e2877f71e43da065b4caef621014ff33 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_f012db9f78a7018d0ec49d2a9e5e1acb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4a6de1871d1a2784bbd973248a207153 = $(`<div id="html_4a6de1871d1a2784bbd973248a207153" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Sakana AI</b><br>Tokyo, Japan<br>Founded: 2023<br>Employees: 20<br><br><a href="https://sakana.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Sakana_AI" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_f012db9f78a7018d0ec49d2a9e5e1acb.setContent(html_4a6de1871d1a2784bbd973248a207153);
+            
+        
+
+        marker_2d3c42ade312ebd976c4d5ceca03a7f2.bindPopup(popup_f012db9f78a7018d0ec49d2a9e5e1acb)
+        ;
+
+        
+    
+    
+                marker_2d3c42ade312ebd976c4d5ceca03a7f2.setIcon(div_icon_e2877f71e43da065b4caef621014ff33);
+            
+    
+            var marker_2686f798d8242abc5e53f858975d18e3 = L.marker(
+                [24.638916, 46.7160104],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_1318f332879105cbd9bee8f2c25ea571 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_13ad1b27b513ce91fdded0f8b2827928 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_72b33280d2138084cb401b668f56917d = $(`<div id="html_72b33280d2138084cb401b668f56917d" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Humain</b><br>Riyadh, Saudi Arabia<br>Founded: 2025<br>Employees: Unknown<br><br><a href="http://humain.ai" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Humain" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_13ad1b27b513ce91fdded0f8b2827928.setContent(html_72b33280d2138084cb401b668f56917d);
+            
+        
+
+        marker_2686f798d8242abc5e53f858975d18e3.bindPopup(popup_13ad1b27b513ce91fdded0f8b2827928)
+        ;
+
+        
+    
+    
+                marker_2686f798d8242abc5e53f858975d18e3.setIcon(div_icon_1318f332879105cbd9bee8f2c25ea571);
+            
+    
+            var marker_585f76882e3c14b649cbae0fea4a645d = L.marker(
+                [37.2405741, 127.1785572],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_472680aac5fb681ab08865e8735e4e87 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_57cc78171fe4e1f7ce82f26c22511079 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d0ab19807719b31404302f65e1af3d69 = $(`<div id="html_d0ab19807719b31404302f65e1af3d69" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>Upstage</b><br>Yongin, South Korea<br>Founded: 2020<br>Employees: Unknown<br><br><a href="https://www.upstage.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/Upstage_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_57cc78171fe4e1f7ce82f26c22511079.setContent(html_d0ab19807719b31404302f65e1af3d69);
+            
+        
+
+        marker_585f76882e3c14b649cbae0fea4a645d.bindPopup(popup_57cc78171fe4e1f7ce82f26c22511079)
+        ;
+
+        
+    
+    
+                marker_585f76882e3c14b649cbae0fea4a645d.setIcon(div_icon_472680aac5fb681ab08865e8735e4e87);
+            
+    
+            var marker_d1c8c4f0d69a51db0f351582602b87ea = L.marker(
+                [24.4538352, 54.3774014],
+                {
+}
+            ).addTo(marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf);
+        
+    
+            var div_icon_b02203dc755480e312a5a03fbed824f3 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"\n                    width:10px;\n                    height:10px;\n                    background:red;\n                    border:2px solid white;\n                    border-radius:50%;\n                    opacity:0.85;\n                \"\u003e\u003c/div\u003e\n                ",
+  "className": "empty",
+});
+        
+    
+        var popup_f547d68394d2b8825bfb179e6a44c09c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2645053b11adc200573d2a74e5ed456d = $(`<div id="html_2645053b11adc200573d2a74e5ed456d" style="width: 100.0%; height: 100.0%;"><div style="font-family: Arial; font-size: 12px;"><b>G42</b><br>Abu Dhabi, United Arab Emirates<br>Founded: 2018<br>Employees: 25<br><br><a href="https://g42.ai/" target="_blank" style="color: #0066cc;">Company Website</a> • <a href="https://en.wikipedia.org/wiki/G42_(company)" target="_blank" style="color: #0066cc;">Wikipedia</a></div></div>`)[0];
+                popup_f547d68394d2b8825bfb179e6a44c09c.setContent(html_2645053b11adc200573d2a74e5ed456d);
+            
+        
+
+        marker_d1c8c4f0d69a51db0f351582602b87ea.bindPopup(popup_f547d68394d2b8825bfb179e6a44c09c)
+        ;
+
+        
+    
+    
+                marker_d1c8c4f0d69a51db0f351582602b87ea.setIcon(div_icon_b02203dc755480e312a5a03fbed824f3);
+            
+    
+            marker_cluster_39a7d0ec50254b9acf458ae17a1ce3cf.addTo(feature_group_a993c176e6afb8ba98ec6af06c8c0d5c);
+        
+    
+            feature_group_a993c176e6afb8ba98ec6af06c8c0d5c.addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+        
+    
+            var feature_group_d918df878c350355a6fd2c97eb0dfc87 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_d527f3490b99d9318b20d6f09e19debf = L.markerClusterGroup(
+                {
+}
+            );
+            marker_cluster_d527f3490b99d9318b20d6f09e19debf.options.iconCreateFunction =
+                function(cluster) {
+        return L.divIcon({
+            html: '<div style="background:gray;color:white;border-radius:50%;'
+                  + 'width:40px;height:40px;line-height:40px;text-align:center;'
+                  + 'font-weight:bold;border:2px solid white;">'
+                  + cluster.getChildCount() +
+                  '</div>',
+            className: 'marker-cluster-custom',
+            iconSize: [40, 40]
+        });
+    };
+        
+    
+            marker_cluster_d527f3490b99d9318b20d6f09e19debf.addTo(feature_group_d918df878c350355a6fd2c97eb0dfc87);
+        
+    
+            feature_group_d918df878c350355a6fd2c97eb0dfc87.addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+        
+    
+            var layer_control_67d8016d104bc0658e4cf4c3c7ce0aa8_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_c2669f67f72a52aaba91c7558109db8a,
+                },
+                overlays :  {
+                    "North America" : feature_group_760d41b6710e16639510a969c7ed5b47,
+                    "Europe" : feature_group_7a71b67de1a7cd72896dfdb2af7dc811,
+                    "Asia / Middle East" : feature_group_a993c176e6afb8ba98ec6af06c8c0d5c,
+                    "Other" : feature_group_d918df878c350355a6fd2c97eb0dfc87,
+                },
+            };
+            let layer_control_67d8016d104bc0658e4cf4c3c7ce0aa8 = L.control.layers(
+                layer_control_67d8016d104bc0658e4cf4c3c7ce0aa8_layers.base_layers,
+                layer_control_67d8016d104bc0658e4cf4c3c7ce0aa8_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_0b14fa73ac1cae2d0028b4a73a19a9ba);
+        
+</script>
+</html>
