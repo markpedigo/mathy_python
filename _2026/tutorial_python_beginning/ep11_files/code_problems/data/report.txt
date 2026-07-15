@@ -1,0 +1,11 @@
+Student Report
+==============
+Name         Score    Grade
+Alice           92        A
+Bob             75        C
+Carol           88        B
+Dave           100        A
+Eve             84        B
+==============
+Average:   87.80
+Top score: Dave (100)

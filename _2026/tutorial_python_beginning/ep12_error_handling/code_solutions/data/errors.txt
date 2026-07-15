@@ -1,0 +1,2 @@
+Row 5 is invalid: score 5r4 cannot be converted to an int.
+Row 6 is invalid: score  cannot be converted to an int.
